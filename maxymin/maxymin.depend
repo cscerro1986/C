@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1535417182 source:d:\cerro\maxymin\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1535417506 source:d:\cerro\maxymin\untitled1.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+
