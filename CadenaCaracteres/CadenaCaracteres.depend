@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1536625027 source:d:\cerro\cadenacaracteres\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
