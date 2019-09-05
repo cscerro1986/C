@@ -1,0 +1,214 @@
+#include <stdio.h>
+#include <stdlib.h>
+//#include "funciones.h"
+
+
+
+int main()
+{
+    fpurgue(stdin);
+    char seguir;
+    int opcion;
+    int operando1, operando2,resutadoSuma, resultadoResta, resultadoDivision,resultadoMultiplicacion, resultadoFact1,resultadoFact2;
+    int flag=0;
+
+ do{
+        //system("cls");
+        printf("\n\nMenu");
+        printf("\n 1. Ingresar primer operando(A=%.2d)", operando1);
+        printf("\n 2. ingresar segundo operando(A=%.2d)", operando2);// este .2 asigna la cantidad de decimales... en este caso 2 decimales.
+        printf("\n 3. Calcular todas las operaciones.");
+        printf("\n 4. Mostrar todos los resultados ");
+        printf("\n 5. Salir\n\n");
+        scanf("\n%d", &opcion);
+
+        switch(opcion){
+        case 1:
+
+
+                printf("ingrese el primer operando");
+                scanf("%d",&operando1);
+                if(operando2!=NULL){
+                	flag=1;
+                }
+                break;
+        case 2:
+                printf("ingrese el segundo operando");
+                scanf("%d", &operando2);
+                if(operando1!=NULL)
+                	{
+                       	flag=1;
+                    }
+
+                break;
+
+
+        case 3:
+        		if(flag==1){
+                resutadoSuma=suma(operando1,operando2);
+                resultadoResta=resta(operando1,operando2);
+                resultadoDivision=division(operando1,operando2);
+                resultadoMultiplicacion=multiplicacion(operando1,operando2);
+                resultadoFact1=factorial1(operando1);
+                resultadoFact2=factorial1(operando2);
+        		}
+        		else{
+        			printf("Ingrese los operandos primero");
+        		}
+                break;
+
+
+        case 4:
+        	if(flag==1){
+					printf("\n\nEl resultado de la suma es: %d",resutadoSuma);
+					printf("\nEl resultado de la resta es: %d",resultadoResta);
+					if(operando2==0){
+						printf("\nError. El Divisor debe ser distinto de 0");
+					}else{
+						printf("\nEl resultado de la division es: %d",resultadoDivision);
+
+						}
+					printf("\nEl resultado de la multiplicacion es: %d",resultadoMultiplicacion);
+
+					if(resultadoFact1==8){
+
+						printf("\nNo se puede calcacular el numerando de un numero negativo");
+					}else if(resultadoFact1==0){
+						printf("\nEl numerando de 0 es 1");
+
+					}else{
+
+						printf("\nEl resultado del factorial de %d es: %d",operando1,resultadoFact1);
+					}
+					if(resultadoFact2==8){
+
+						printf("\nNo se puede calcacular el numerando de un numero negativo");
+					}else if(resultadoFact2==0){
+						printf("\nEl numerando de 0 es 1");
+
+					}else{
+
+						printf("\nEl resultado del factorial de %d es %d",operando2,resultadoFact2);
+					}
+				}else{
+					printf("Ingrese los operandos primero");
+				}
+
+                break;
+        case 5:
+                printf("Ha salido del programa \n");
+
+                break;
+        default: ;
+
+        }
+
+    printf("\n\nPara salir oprima N, sino cualquier otra tecla para continuar");
+    fflush(stdin);
+    scanf("%c",&seguir);
+
+
+}while(seguir!=110);
+    printf("Ha salido del programa \n");
+
+
+    return 0;
+}
+
+
+
+/**
+* @brief Suma dos valores enteros.
+* @param num1 El primer valor, para realizar la operacion.
+* @param num2 El segundo valor, para realizar la operacion.
+* @return Devuelve el resultado de la suma de los operadores ingresados.
+*/
+
+
+int suma(int op1,int op2){
+    int resultado;
+    resultado=op1+op2;
+    return resultado;
+
+}
+
+/**
+* @brief Resta dos valores enteros.
+* @param op1 El primer valor, para realizar la operacion.
+* @param op2 El segundo valor, para realizar la operacion.
+* @return Devuelve el resultado de la resta de los operadores ingresados.
+*/
+
+
+
+int resta(int op1,int op2){
+    int resultado;
+    resultado=op1-op2;
+    return resultado;
+
+}
+
+
+/**
+* @brief Divide dos valores enteros y si no es posible da mensaje de error.
+* @param num1 El primer valor, para realizar la operacion.
+* @param num2 El segundo valor, para realizar la operacion el cual debe ser distinto de 0.
+* @return Devuelve el resultado de la division de los operadores ingresados.
+*/
+
+
+
+int division(int op1,int op2){
+
+
+
+	int resultado=0;
+	if(op2==0){
+		resultado=-1;
+
+	}else{
+		resultado=op1/op2;
+	}
+
+    return resultado;
+
+}
+
+/**
+* @brief Multiplica dos valores enteros.
+* @param num1 El primer valor, para realizar la operacion.
+* @param num2 El segundo valor, para realizar la operacion.
+* @return Devuelve el resultado de la multiplicacion de los operadores ingresados.
+*/
+
+
+int multiplicacion(int op1,int op2){
+    int resultado;
+    resultado=op1*op2;
+     return resultado;
+}
+
+/**
+* @brief Realiza el factorial de un numero ingresado, en caso de que sea un numero negativo, da un mensaje de error.
+* @param num El numero al cual se desea realizar el factorial.
+* @return Devuelve el resultado del factorial del numero ingresado.
+*/
+
+
+int factorial1(int valor){
+
+    int resultado=1, i;
+
+    if(valor<0){
+        resultado=8;
+    }else if(valor==0){
+        resultado=1;
+
+    }else
+    for(i=valor;i>0;i--){
+
+        resultado=resultado*i;
+       }
+
+return resultado;
+}
