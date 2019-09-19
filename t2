@@ -1,0 +1,256 @@
+/*
+ ============================================================================
+ Name        : TP2.c
+ Author      : Santi
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Hello World in C, Ansi-style
+ ============================================================================
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int getChar(char* letra);
+int menu(int *opcionElegida);
+int obtenerInt(char *pMensaje, char * pMensajeError, int *numero,
+		int minimo, int maximo, int intentos);
+int getInt (int *pResultado);
+int esNumerica(char * cadena);
+int obtenerFloat(char *pMensaje, char * pMensajeError, float *numero,
+		int minimo, int maximo, int intentos);
+
+
+struct persona {
+	int nota;
+	char nombre[40];
+	int edad;
+};
+
+
+
+int main(void) {
+
+	struct persona persona1;
+	int op;
+	char seguir;
+	float num2;
+
+	do{
+
+		menu(&op);
+
+		switch(op){
+
+		case 1:
+			printf("Elegio la opcion 1");
+			break;
+		case 2:
+			printf("Elegio la opcion 2");
+			break;
+		case 3:
+			printf("Elegio la opcion 3");
+			break;
+		case 4:
+			printf("Elegio la opcion 4");
+			break;
+
+		}
+
+		printf("Desea continua? s-n");
+		getChar(&seguir);
+
+	}while(seguir=='s');
+
+
+	return 0;
+}
+
+int menu(int * opcionElegida){
+	int opcion;
+	int ver;
+	int ret =-1;
+
+	printf("\n---------------------------------------");
+	printf("\n-------INGRESE LA OPCION DESEADA-------");
+	printf("\n---------------------------------------");
+
+	if(obtenerInt("\n\n\n1-ALTAS.\n2-BAJAS.\n3-MODIFICACIONES.\n4.INFORMAR.","Error. ",&opcion,1,3,5)==0){
+
+		printf("el nu es %d",opcion);
+		ret=0;
+		*opcionElegida=opcion;
+
+	}
+	return ret;
+}
+
+int obtenerInt(char *pMensaje, char * pMensajeError, int *numero, int minimo, int maximo, int intentos)
+{
+	int retorno=-1;
+	int numeroIngresado;
+	do
+		{
+
+		intentos--;
+		printf("%s",pMensaje);
+
+		__fpurge(stdin);
+		printf("antes del el getInt");
+		if(getInt(&numeroIngresado)==1)
+			{
+			printf("paso el getInt");
+			if (numeroIngresado>maximo || numeroIngresado<minimo)
+				{
+					printf("%s",pMensajeError);
+					printf("Entre al if de getInt");
+
+				}
+			else
+				{
+					*numero=numeroIngresado;
+					printf("entre al else de getInt");
+					retorno=0;
+					break;
+				}
+			}
+
+	}while(intentos>0);
+
+	return retorno;
+}
+
+int getInt (int *pResultado)
+{
+	int retorno=-1;
+	int prueba;
+	char buffer [64];
+	//scanf("%s",buffer);
+	fgets(buffer,sizeof(buffer),stdin);//argumentos, la direcion de la cadena, el largo de la misma, stdin para verlo en consola.
+	printf("a ver ahora aca");
+	if(esNumerica(buffer)==-1)
+	{
+		*pResultado= atoi(buffer);//atoi transforma cadena de caracteres a int
+		retorno=1;
+	}
+	return retorno;
+
+}
+
+int esNumerica(char * cadena)
+{
+	int ret =-1;
+	int i=0;
+
+	if (cadena!=NULL)
+		{
+		while(cadena[i]!='\0')
+			{
+				i++;
+				if(cadena[i]<'0'||cadena[i]>'9')//no son numeros
+				{
+					break;
+				}
+			}
+		if(cadena[i]=='\0')
+			{
+				ret = 1;// si son solo numeros
+			}
+		}
+
+	return ret;
+}
+
+
+int getChar(char* letra){
+	int ret=-1;
+
+	char letraAux[2];
+
+	fgets(letraAux,1,stdin);
+	strcpy(*letra,letraAux);
+
+
+	return ret;
+}
+
+
+int getFloat (float *pResultado)
+{
+	int retorno=-1;
+	float prueba;
+	char buffer [64];
+	//scanf("%s",buffer);
+	fgets(buffer,sizeof(buffer),stdin);//argumentos, la direcion de la cadena, el largo de la misma, stdin para verlo en consola.
+
+	if(esNumerica(buffer)==-1)
+	{
+		*pResultado= atof(buffer);//atoi transforma cadena de caracteres a int
+		retorno=1;
+	}
+	return retorno;
+
+}
+
+int esNumericaYdecimal(char * cadena)
+{
+	int ret =-1;
+	int i=0;
+
+	if (cadena!=NULL)
+		{
+		while(cadena[i]!='\0')
+			{
+				i++;
+
+				if(cadena[i]<'0'||cadena[i]>'9')//no son numeros
+				{
+					if(cadena[i]=='-'&&i==0){
+						continue;
+					}else
+					{
+						break;
+					}
+
+				}
+			}
+		if(cadena[i]=='\0')
+			{
+				ret = 1;// si son solo numeros
+			}
+		}
+
+	return ret;
+}
+
+
+int obtenerFloat(char *pMensaje, char * pMensajeError, float *numero, int minimo, int maximo, int intentos)
+{
+	int retorno=-1;
+	float numeroIngresado;
+	do
+		{
+		intentos--;
+		printf("%s",pMensaje);
+
+		__fpurge(stdin);
+		if(getFloat(&numeroIngresado)==1)
+			{
+			printf("getFloat ==1");
+			if (numeroIngresado>maximo || numeroIngresado<minimo)
+				{
+					printf("%s",pMensajeError);
+
+				}
+			else
+				{
+					*numero=numeroIngresado;
+					retorno=0;
+					break;
+				}
+			}
+	}while(intentos>0);
+
+	return retorno;
+}
+
